@@ -1,0 +1,26 @@
+{NeoBook Function}
+Version=5,60
+Language=NeoBook
+Comment=Por josevdr95  (neo_date_time)|-------------------------------------------------------|Convertidor de milisegundos (H:M:S)|Param = datetime.cvms|--------------------------------------------------------|Mostrar hora y fecha|Param = datetime.time|Param = datetime.date|--------------------------------------------------------
+Param=[%nun]|FileName|Milisegundos
+Param=[%d]|FileName|Decimales (Lugares después de la coma)
+Param=[%Param]|FileName|Param
+{End}
+.Por josevdr95
+.datetime.cvms
+If "[%Param]" "=" "datetime.cvms"
+Math "[%nun]/1000" "[%d]" "[R_seconds]"
+Math "[%nun]/60000" "[%d]" "[R_minutes]"
+Math "[%nun]/3600000" "[%d]" "[R_hours]"
+Else
+EndIf
+.datetime.time
+If "[%Param]" "=" "datetime.time"
+SetVar "[R_time]" "[Time24]"
+Else
+EndIf
+.datetime.date
+If "[%Param]" "=" "datetime.date"
+SetVar "[R_date]" "[DateShort]"
+Else
+EndIf

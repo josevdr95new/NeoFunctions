@@ -1,0 +1,10 @@
+{NeoBook Function}
+Version=5,80
+Language=NeoBook
+{End}
+FolderExists "[WindowsDir]SysWOW64" "[cp]"
+If "[cp]" "=" "true"
+SetVar "[win64or32]" "64 bits"
+Else
+SetVar "[win64or32]" "32 bits"
+EndIf

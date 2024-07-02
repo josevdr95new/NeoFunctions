@@ -1,0 +1,20 @@
+{NeoBook Function}
+Version=5,60
+Language=NeoBook
+{End}
+SetVar "[code_bat]" "@echo off|systeminfo /FO:LIST >systeminfocmd.tmp|exit|"
+FileWrite "[TempDir]systeminfocmd.bat" "All" "[code_bat]"
+SetVar "[cargando]" "inicio"
+Run "[TempDir]systeminfocmd.bat" "" "RunOnce+Wait+LoadComplete+Hidden" "" ""
+SetVar "[cargando]" "final"
+FileErase "[TempDir]systeminfocmd.bat"
+FileLen "[PubDir]systeminfocmd.tmp" "[t_code_tmp]"
+Loop "1" "[t_code_tmp]" "[i]"
+FileRead "[PubDir]systeminfocmd.tmp" "[i]" "[L_[i]]"
+StrReplace "[L_[i]]" ":" "=" "[L_[i]]" ""
+StrReplace "[L_[i]]" " " "" "[L_[i]]" ""
+FileWrite "[TempDir]auto_save_var" "Append" "[L_[i]]"
+EndLoop
+.FileRead "[TempDir]auto_save_var" "All" "[comprobar]"
+LoadVariables "[TempDir]auto_save_var"
+DeleteArray "[L_]" "All"

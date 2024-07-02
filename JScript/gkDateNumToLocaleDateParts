@@ -1,0 +1,45 @@
+{NeoBook Function}
+Version=5.80
+Language=JScript
+Param=[dateNum]|Number|date number to be translated
+Param=[base]|Number|return monthOfYear and dayOfWeek using base of 0 or 1 (default)
+Param=[fullYear]|Variable|VNWin variable to contain Full Year (ccyy)
+Param=[monthOfYear]|Variable|VNWin variable to contain Month Number
+Param=[dayOfMonth]|Variable|VNWin variable to contain Day of Month Number
+Param=[dayOfWeek]|Variable|VNWin variable to contain Day of Week Number
+{End}
+//gkDateNumToLocaleDateParts
+//takes ...
+//date number passed in first parameter
+//desired base (0 or 1; default is 1) for monthOfYear
+
+//and returns Locale values for ...
+//fullYear (ccyy) value in variable defined in the third parameter
+//monthOfYear value in variable defined in the fourth parameter
+//dayOfMonth value in variable defined in the fifth parameter
+//dayOfWeek value in variable defined in the sixth parameter
+
+
+// convert date from number
+function numToLocaleDateParts(jsDateNum,jsBase){
+
+dateObject = new Date(jsDateNum);
+
+fullYear = dateObject.getFullYear();
+nbSetVar("[fullYear]",fullYear);
+
+monthOfYear = dateObject.getMonth();
+if (jsBase != 0) {
+  monthOfYear = monthOfYear + 1;
+}
+nbSetVar("[monthOfYear]",monthOfYear);
+
+dayOfMonth = dateObject.getDate();
+nbSetVar("[dayOfMonth]",dayOfMonth);
+
+dayOfWeek = dateObject.getDay();
+nbSetVar("[dayOfWeek]",dayOfWeek);
+
+}
+
+numToLocaleDateParts([dateNum],[base]);

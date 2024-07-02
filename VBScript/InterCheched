@@ -1,0 +1,45 @@
+{NeoBook Function}
+Version=5,80
+Language=VBScript
+{End}
+' Create WshShell object
+Set wshShell = CreateObject("WScript.Shell")
+
+' Create WMI object
+Set wmiObj = GetObject("winmgmts:")
+
+' Get start time
+' startTime = Timer()
+
+' Measure latency to 8.8.8.8 (Google DNS)
+On Error Resume Next
+Set colPingResults = wmiObj.ExecQuery("SELECT * FROM Win32_PingStatus WHERE Address = '8.8.8.8'")
+If Err.Number < 0 Then
+    latencyMs = -1
+    rating = "No hay conexión a Internet"
+    Err.Clear
+Else
+    If colPingResults.Count > 0 Then
+        For Each pingResult In colPingResults
+            latencyMs = pingResult.ResponseTime
+            If latencyMs < 50 Then
+                rating = "Muy Buena"
+            ElseIf latencyMs < 100 Then
+                rating = "Buena"
+            ElseIf latencyMs < 155 Then
+                rating = "Regular"
+            ElseIf latencyMs < 400 Then
+                rating = "Mala"
+            Else
+                rating = "Muy mala"
+            End If
+        Next
+    Else
+        latencyMs = -1
+        rating = "No hay conexión a Internet"
+    End If
+End If
+
+' Save results to VNW variables
+publication.nbSetVar "[%LatenciaInternet]", latencyMs
+publication.nbSetVar "[%CalificacionLatencia]", rating
