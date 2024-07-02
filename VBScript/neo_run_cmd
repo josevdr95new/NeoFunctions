@@ -1,0 +1,10 @@
+{NeoBook Function}
+Version=5,60
+Language=VBScript
+Comment=Por josevdr95  (neo_run_cmd)|-------------------------------------|Ejecuta commando|Ejemplo:|ping 127.0.0.1 -t|------------------------------------
+Param=[%cmd]|FileName|Comando
+Param=[%Param]|FileName|Parámetro
+{End}
+Set objShell = CreateObject("WScript.Shell")
+strCommand = "cmd /k [%cmd] [%Param]"
+objShell.Run strCommand, 1

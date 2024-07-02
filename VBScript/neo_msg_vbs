@@ -1,0 +1,10 @@
+{NeoBook Function}
+Version=5,60
+Language=VBScript
+Comment=Por josevdr95  (neo_msg_vbs)|--------------------------------------------------------|Mensajes|----------------------------------------------------------|Tipos de mensajes|Ejemplo:|16 =  Asterisco         (16, 17, 18, 19, 20 ,21)|32 = Pregunta          (32, 33, 34, 35, 36, 37)|48 = Advertencia      (48, 49, 50, 51, 52, 53) |64= Exclamación     (64, 65, 66, 67, 68, 69)|-------------------------------------------------------------
+Param=[%T]|FileName|Titulo
+Param=[%C]|FileName|Contenido
+Param=[%TM]|FileName|Tipo de mensaje
+{End}
+texto = "[%C]"
+MyBox = MsgBox(texto,[%TM],"[%T]")
