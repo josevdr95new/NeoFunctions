@@ -1,0 +1,28 @@
+{NeoBook Function}
+Version=5,60
+Language=VBScript
+Comment=Creado por All_StarS
+Param=[%1]|Text|true para traer solo el adaptador ethernet o false para listar todos
+Param=[%2]|Variable|variable donde se guardara el resultado
+{End}
+dim WMI:  set WMI = GetObject("winmgmts:\\.\root\cimv2")
+dim Nads: set Nads = WMI.ExecQuery("Select * from Win32_NetworkAdapter where physicaladapter=true")
+dim nad
+dim list
+for each Nad in Nads
+    if not isnull(Nad.MACAddress) then
+        if InStr(Nad.description,"") > 0 then
+            if "[%1]" = "true" then
+                if InStr(Nad.description,"irtual") = 0 then
+                    if InStr(Nad.description,"ther") > 0 then
+                        list = list + ";" +  Nad.MACAddress + vbCrLf
+                    end if
+                end if
+            else
+                list = list + "" +  Nad.MACAddress + vbCrLf
+            end if
+        end if
+    end if
+next
+
+publication.nbSetVar "[%2]", list
